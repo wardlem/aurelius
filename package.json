@@ -1,0 +1,24 @@
+{
+  "name": "@potient/aurelius",
+  "version": "1.0.0",
+  "description": "Templating engine for incremental dom",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha spec/**/*.spec.js",
+    "coverage": "node_modules/.bin/nyc --all --reporter=html --reporter=text-summary npm test",
+    "docs": "node_modules/.bin/jsdoc src -r -d docs"
+  },
+  "keywords": [
+    "template",
+    "incremental dom"
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.16.0",
+    "jsdoc": "^3.5.5",
+    "mocha": "^5.1.0",
+    "nyc": "^14.1.0"
+  },
+  "author": "Mark Wardle <mark@potient.com>",
+  "license": "ISC"
+}
