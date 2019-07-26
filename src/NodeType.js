@@ -7,6 +7,7 @@ const NodeType = {
     ATTRIBUTE: 'ATTRIBUTE',
     VALUE: 'VALUE',
     ATTRIBUTES: 'ATTRIBUTES',
+    COMMENT: 'COMMENT',
 };
 
 module.exports = NodeType;

@@ -35,7 +35,7 @@
     "one-var": [
       2,
       {
-        "uninitialized": "always",
+        "uninitialized": "never",
         "initialized": "never"
       }
     ],
