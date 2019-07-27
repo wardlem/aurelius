@@ -14653,7 +14653,7 @@ describe('IncrementalDomWriter', () =>
     {
         const src = '{{#for letter of letters}}<span>{{letter}}</span>{{/for}}';
         const root = srcToNode(src, {letters: 'abcd'});
-        expect(root.innerHTML).to.equal('<span>a</span><span>b</span><span>d</span><span>d</span>');
+        expect(root.innerHTML).to.equal('<span>a</span><span>b</span><span>c</span><span>d</span>');
     });
 });
 

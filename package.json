@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha spec/server/**/*.spec.js",
     "test:build": "browserify -o spec/browser/bundle.js spec/browser/index.js",
+    "test:client": "npm run test:build && firefox spec/browser/main.html",
     "coverage": "nyc --all --reporter=html --reporter=text-summary npm test",
     "docs": "jsdoc src -r -d docs"
   },
