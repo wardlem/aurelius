@@ -2,3 +2,5 @@
 node_modules
 coverage
 documentation
+
+spec/browser/bundle.js
