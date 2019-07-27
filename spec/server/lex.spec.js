@@ -1,7 +1,7 @@
 const {expect} = require('chai');
 
-const lex = require('../src/lex');
-const TokenType = require('../src/TokenType');
+const lex = require('../../src/lex');
+const TokenType = require('../../src/TokenType');
 
 describe('lex', () =>
 {

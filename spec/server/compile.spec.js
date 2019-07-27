@@ -1,8 +1,8 @@
 const {expect} = require('chai');
 
-const lex = require('../src/lex');
-const parse = require('../src/parse');
-const compile = require('../src/compile');
+const lex = require('../../src/lex');
+const parse = require('../../src/parse');
+const compile = require('../../src/compile');
 
 function compileSource(src)
 {
@@ -28,15 +28,6 @@ describe('compile', () =>
         const compiled = compileSource(src);
         const template = doEval(compiled);
         expect(template({})).to.equal('This is text');
-    });
-
-    it('compiles a simple html tag', () =>
-    {
-        const src = '<p>Some text...</p>';
-
-        const compiled = compileSource(src);
-        const template = doEval(compiled);
-        expect(template({})).to.equal('<p>Some text...</p>');
     });
 
     it('compiles a simple html tag', () =>

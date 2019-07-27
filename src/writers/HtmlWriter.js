@@ -26,7 +26,6 @@ HtmlWriter.writeIntro = function(name)
 HtmlWriter.writeTextNode = function(content, dynamicContent, ws)
 {
     const quote = dynamicContent ? '' : "'";
-    // TODO: Handle depth
     return `${ws}__htmloutput__.push(${quote}${escapeString(content)}${quote})`;
 };
 
@@ -50,15 +49,18 @@ HtmlWriter.writeElementOpenStart = function writeElementOpenStart(_tag, dynamicT
     return `${ws}__htmloutput__.push(${quote}<${tag}${keyStr}${quote})`;
 };
 
-HtmlWriter.writeElementOpenEnd = function writeElementOpenEnd(selfClosing, ws)
+HtmlWriter.writeElementOpenEnd = function writeElementOpenEnd(_tag, _dynamicTag, selfClosing, ws)
 {
     const close = selfClosing ? '/>' : '>';
     return `${ws}__htmloutput__.push('${close}')`;
 };
 
-HtmlWriter.writeElementClose = function writeElementClose(tag, isOutput, ws)
+HtmlWriter.writeElementClose = function writeElementClose(_tag, dynamicTag, ws)
 {
-    return `${ws}__htmloutput__.push('</${tag}>')`;
+    const tag = dynamicTag ? `\${${_tag}}` : _tag;
+    const quote = dynamicTag ? '`' : "'";
+
+    return `${ws}__htmloutput__.push(${quote}</${tag}>${quote})`;
 };
 
 HtmlWriter.writeAttribute = function writeAttribute(_name, dynamicName, _value, dynamicValue, ws)
@@ -76,16 +78,9 @@ HtmlWriter.writeAttribute = function writeAttribute(_name, dynamicName, _value, 
         const name = dynamicName ? _name : `'${escapeString(_name)}'`;
         return [
             `${ws}__writeattr__(${name}, ${_value})`,
-            // `${ws}if (${tmpVarName} === true) {`,
-            // `${ws}  __htmloutput__.push(${quote} ${name}${quote})`,
-            // `${ws}} else if (${tmpVarName} !== false && ${tmpVarName} != null) {`,
-            // `${ws}  __htmloutput__.push(${quote} ${name}="\${__escapeString__(${tmpVarName})}"${quote})`,
-            // `${ws}}`,
         ].join('\n');
     }
 
     const value = `"${escapeString(_value)}"`;
     return `${ws}__writeattr__('${escapeString(name)}', ${value})`;
-
-    // return `${ws}__htmloutput__.push(${quote} ${name}=${value}${quote})`;
 };

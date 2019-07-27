@@ -1,8 +1,8 @@
 const {expect} = require('chai');
 
-const lex = require('../src/lex');
-const parse = require('../src/parse');
-const NodeType = require('../src/NodeType');
+const lex = require('../../src/lex');
+const parse = require('../../src/parse');
+const NodeType = require('../../src/NodeType');
 
 describe('parse', () =>
 {

@@ -9,12 +9,28 @@ const baseDirectives = {
 function compile(nodes, options = {})
 {
     const {
-        writer = require('./writers/HtmlWriter'),
+        writer: _writer = require('./writers/HtmlWriter'),
         name = 'template',
         useWith = true,
         preserveComments = false,
         directives = {},
     } = options;
+
+    let writer = _writer;
+    if (typeof writer === 'string')
+    {
+        switch (writer)
+        {
+            case 'html':
+                writer = require('./writers/HtmlWriter');
+                break;
+            case 'incremental-dom':
+                writer = require('./writers/IncrementalDomWriter');
+                break;
+            default:
+                throw Error(`Writer ${writer} is not built-in`);
+        }
+    }
 
     let id = 0;
 
@@ -178,7 +194,7 @@ function writeElement(node, state)
 
     if (children.length === 0)
     {
-        parts.push(writer.writeElementOpenEnd(true, ws));
+        parts.push(writer.writeElementOpenEnd(tag, isOutput, true, ws));
         return parts.join('\n');
     }
 
@@ -188,7 +204,7 @@ function writeElement(node, state)
         nodes: children,
     };
 
-    parts.push(writer.writeElementOpenEnd(false, ws));
+    parts.push(writer.writeElementOpenEnd(tag, isOutput, false, ws));
 
     while (!eos(newState))
     {

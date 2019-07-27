@@ -1,0 +1,1 @@
+require('./IncrementalDomWriter.spec.js');
