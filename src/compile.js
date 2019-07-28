@@ -14,6 +14,7 @@ function compile(nodes, options = {})
         useWith = true,
         preserveComments = false,
         directives = {},
+        output = null,
     } = options;
 
     let writer = _writer;
@@ -75,19 +76,45 @@ function compile(nodes, options = {})
         decreaseDepth(state);
     }
 
-    return `${writer.writeIntro(name)}
+    return `${writeExport(output)}${writer.writeIntro(name)}
 ${writeIntro(useWith)}
 ${writeLifted(state)}
-${parts.join('')}
+${parts.join('\n')}
 ${writeOutro(useWith)}
 ${writer.writeOutro()}
 `;
 }
 
+function writeExport(output)
+{
+    switch (output)
+    {
+        case 'cjs':
+        case 'commonjs':
+        {
+            return 'module.exports = ';
+        }
+        case 'es6':
+        case 'module':
+        {
+            return 'export default ';
+        }
+        case null:
+        {
+            return '';
+        }
+        default:
+        {
+            throw Error(`${output} is not a valid output option.`);
+        }
+    }
+
+
+}
+
 function writeIntro(useWith)
 {
-    return `${useWith ? '  with (data) {' : ''}
-`;
+    return `${useWith ? '  with (data || {}) {' : ''}`;
 }
 
 function writeOutro(useWith)
@@ -161,7 +188,7 @@ function writeElement(node, state)
     if (isOutput)
     {
         tag = `__tag_${state.nextId()}__`;
-        const prefix = `${ws}const ${tag} = ${writeOutputSource(tagNode, state)}\n`;
+        const prefix = `${ws}const ${tag} = ${writeOutputSource(tagNode, state)}`;
         parts.push(prefix);
     }
     else

@@ -272,4 +272,22 @@ describe('lex', () =>
 
         expect(tokens[7].type).to.equal(TokenType.END_TAG);
     });
+
+    it('handles dynamic tags', () =>
+    {
+        const tokens = lex('<{{currentPage}} slot="page" />');
+        expect(tokens.length).to.equal(8);
+
+        expect(tokens[0].type).to.equal(TokenType.OPEN_START_TAG);
+        expect(tokens[1].type).to.equal(TokenType.OPEN_OUTPUT);
+        expect(tokens[2].type).to.equal(TokenType.TEXT);
+        expect(tokens[2].value.toString('utf8')).to.equal('currentPage');
+        expect(tokens[3].type).to.equal(TokenType.END_BRACE);
+        expect(tokens[4].type).to.equal(TokenType.TEXT);
+        expect(tokens[4].value.toString('utf8')).to.equal('slot');
+        expect(tokens[5].type).to.equal(TokenType.EQUALS);
+        expect(tokens[6].type).to.equal(TokenType.TEXT);
+        expect(tokens[6].value.toString('utf8')).to.equal('page');
+        expect(tokens[7].type).to.equal(TokenType.CLOSE_END_TAG);
+    });
 });

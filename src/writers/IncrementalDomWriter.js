@@ -5,13 +5,13 @@ const IncrementalDomWriter = module.exports;
 IncrementalDomWriter.writeIntro = function(name)
 {
     return `function ${name} (data) {
-  const __IncrementalDom__ = require('incremental-dom');
-  const __elementOpenStart__ = __IncrementalDom__.elementOpenStart;
-  const __elementOpenEnd__ = __IncrementalDom__.elementOpenEnd;
-  const __elementClose__ = __IncrementalDom__.elementClose;
-  const __elementVoid__ = __IncrementalDom__.elementVoid;
-  const __attr__ = __IncrementalDom__.attr;
-  const __text__ = __IncrementalDom__.text;
+  const __IncrementalDom__ = require('incremental-dom')
+  const __elementOpenStart__ = __IncrementalDom__.elementOpenStart
+  const __elementOpenEnd__ = __IncrementalDom__.elementOpenEnd
+  const __elementClose__ = __IncrementalDom__.elementClose
+  const __elementVoid__ = __IncrementalDom__.elementVoid
+  const __attr__ = __IncrementalDom__.attr
+  const __text__ = __IncrementalDom__.text
   function __writeattr__(name, value) {
     if (name === 'class' && value != null && typeof value === 'object') {
       if (Array.isArray(value)) {

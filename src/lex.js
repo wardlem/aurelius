@@ -151,6 +151,7 @@ function tagname(state)
     else if (isOpenBrace(state))
     {
         pushState(state, State.BRACE);
+        nextToken(state);
     }
     else
     {

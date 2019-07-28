@@ -1,4 +1,5 @@
 const escapeString = require('../helpers/escapeString');
+const escapeStringText = escapeString.toString().replace(/\n/g, '\n  ');
 
 const HtmlWriter = module.exports;
 
@@ -6,7 +7,7 @@ HtmlWriter.writeIntro = function(name)
 {
     return `function ${name}(data) {
   const __htmloutput__ = [];
-  const __escapeString__ = ${escapeString.toString()};
+  const __escapeString__ = ${escapeStringText};
   function __writeattr__(name, value) {
     if (value === true) {
       __htmloutput__.push(\` \${name}\`)

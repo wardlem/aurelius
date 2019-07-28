@@ -102,4 +102,11 @@ describe('compile', () =>
         const template = compileSource(src);
         expect(template({letters: 'abcd'})).to.equal('<span>a</span><span>b</span><span>c</span><span>d</span>');
     });
+
+    it('writes a dynamic tag', () =>
+    {
+        const src = '<{{currentPage}} slot="page" />';
+        const template = compileSource(src);
+        expect(template({currentPage: 'my-page'})).to.equal('<my-page slot="page"/>');
+    });
 });
