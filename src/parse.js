@@ -95,7 +95,7 @@ function parseElement(state)
 
         const endTagNameNode = parseValue(state);
 
-        if (endTagNameNode.children !== tagNode.children && endTagNameNode.value !== '?')
+        if (endTagNameNode.children !== tagNode.children && endTagNameNode.children !== '?')
         {
             throw Error(`Closing tag at ${endTagNameNode.token.line}:${endTagNameNode.token.linePos} does not match open tag at ${attributesToken.line}:${attributesToken.linePos}`);
         }

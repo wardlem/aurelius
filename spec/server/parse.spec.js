@@ -176,4 +176,14 @@ describe('parse', () =>
         expect(nodes[0].children[0].type).to.equal(NodeType.VALUE);
         expect(nodes[0].children[0].children).to.equal('a comment');
     });
+
+    it('allows a closing tag to be specified with a ?', () =>
+    {
+        const src = '<{{tag}}></?>';
+        const tokens = lex(src);
+        const nodes = parse(tokens);
+
+        expect(nodes.length).to.equal(1);
+        expect(nodes[0].type).to.equal(NodeType.ELEMENT);
+    });
 });
