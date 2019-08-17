@@ -109,4 +109,16 @@ describe('compile', () =>
         const template = compileSource(src);
         expect(template({currentPage: 'my-page'})).to.equal('<my-page slot="page"/>');
     });
+
+    it('can build attributes in a for loop', () =>
+    {
+        const src = '{{#for item of items}}<{{item.tag}} *={{item.props}}>{{item.text}}</?>{{/for}}';
+        const template = compileSource(src);
+        expect(template({
+            items: [
+                {tag: 'p', props: {id: 'first'}, text: 'one'},
+                {tag: 'div', props: {id: 'second'}, text: 'two'},
+            ],
+        })).to.equal('<p id="first">one</p><div id="second">two</div>');
+    });
 });

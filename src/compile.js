@@ -108,8 +108,6 @@ function writeExport(output)
             throw Error(`${output} is not a valid output option.`);
         }
     }
-
-
 }
 
 function writeIntro(useWith)
@@ -178,8 +176,12 @@ function writeElement(node, state)
         // We need to evaluate them before writing attributes
         // since the key may be contained there, and some writers
         // can use the key.
-        const attsFnName = writeDynamicAttributes(attributes, state);
+        const {
+            attsFnName,
+            attsFnSrc,
+        } = writeDynamicAttributes(attributes, state);
         attsVarName = `__atts_${state.nextId()}__`;
+        parts.push(attsFnSrc);
         parts.push(`${ws}const ${attsVarName} = ${attsFnName}();`);
         const key = `__key_${state.nextId()}__`;
         parts.push(`${ws}const ${key} = ${attsVarName}.key;`);
@@ -353,7 +355,10 @@ function writeDynamicAttributes(attributes, state)
     }`;
 
     state.lifted[fnName] = fn;
-    return fnName;
+    return {
+        attsFnName: fnName,
+        attsFnSrc: fn,
+    };
 }
 
 function getNode(state, offset = 0)
