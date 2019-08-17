@@ -121,4 +121,20 @@ describe('compile', () =>
             ],
         })).to.equal('<p id="first">one</p><div id="second">two</div>');
     });
+
+    it('binds dynamic attributes to the current this context', () =>
+    {
+        const ctx = {
+            shout(str) {return str.toUpperCase();},
+            props() {return {super: 'dooper'};},
+        };
+        const src = '{{#for item of items}}<{{item.tag}} *={{this.props()}}>{{this.shout(item.text)}}</?>{{/for}}';
+        const template = compileSource(src);
+        expect(template.call(ctx, {
+            items: [
+                {tag: 'p', props: {id: 'first'}, text: 'one'},
+                {tag: 'div', props: {id: 'second'}, text: 'two'},
+            ],
+        })).to.equal('<p super="dooper">ONE</p><div super="dooper">TWO</div>');
+    });
 });

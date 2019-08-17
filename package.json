@@ -1,6 +1,6 @@
 {
   "name": "@potient/aurelius",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "Templating engine for incremental dom",
   "main": "index.js",
   "scripts": {

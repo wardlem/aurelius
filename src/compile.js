@@ -350,11 +350,10 @@ function writeDynamicAttributes(attributes, state)
     }
 
     const fnName = `__buildatts_${state.nextId()}__`;
-    const fn = `function ${fnName}() {
+    const fn = `const ${fnName} = function ${fnName}() {
         return Object.assign({}, ${parts.join(', ')})
-    }`;
+    }.bind(this);`;
 
-    state.lifted[fnName] = fn;
     return {
         attsFnName: fnName,
         attsFnSrc: fn,
