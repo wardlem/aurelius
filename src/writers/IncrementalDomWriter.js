@@ -31,10 +31,11 @@ IncrementalDomWriter.writeOutro = function()
     return '}';
 };
 
-IncrementalDomWriter.writeTextNode = function(content, dynamicContent, ws)
+IncrementalDomWriter.writeTextNode = function(_content, dynamicContent, ws)
 {
     const quote = dynamicContent ? '' : "'";
-    return `${ws}__text__(${quote}${escapeString(content)}${quote})`;
+    const content = dynamicContent ? _content : escapeString(_content);
+    return `${ws}__text__(${quote}${content}${quote})`;
 };
 
 IncrementalDomWriter.writeElementOpenStart = function writeElementOpenStart(_tag, dynamicTag, _key, dynamicKey, ws)
